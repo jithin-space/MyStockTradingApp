@@ -1,0 +1,24 @@
+# Node.js common ignores
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Common folder specific ignores
+common/build/  # Optional build artifacts for common code
+
+# Frontend specific ignores
+frontend/.next/  # Next.js build output (if using Next.js)
+frontend/out/  # Optional Next.js 13+ output directory
+# Add patterns for other frontend build artifacts here
+
+# Backend specific ignores
+backend/.build/  # Optional build artifacts for backend
+# Add patterns for other backend build artifacts here
+
+# Environment variables
+.env*  # Include all environment variable files
+
+# Optional cache directories
+.eslintcache
+.stylelintcache
