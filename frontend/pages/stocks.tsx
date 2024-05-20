@@ -153,3 +153,5 @@ const Stocks = () => {
     </Container>
   );
 };
+
+export default Stocks;

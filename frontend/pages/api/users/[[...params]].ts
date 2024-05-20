@@ -10,7 +10,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     try {
         const response = await axios({
             method,
-            url: `${apiUrl}${req.url!.replace('/api/users', '')}`,
+            url: `${apiUrl}${req.url}`,
             data: body,
             params: query
         });

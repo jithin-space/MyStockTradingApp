@@ -1,0 +1,26 @@
+version: '3'
+
+services:
+  frontend:
+    build: ./frontend
+    ports:
+      - '3000:3000'
+    environment:
+      - NODE_ENV=production
+  
+  backend:
+    build: ./backend
+    ports:
+      - '3001:3000'
+    environment:
+      - NODE_ENV=production
+      - DATABASE_URL=postgres://user:password@db:5555/stock_trading
+  
+  db:
+    image: postgres:13
+    environment:
+      - POSTGRES_DB=stock_trading
+      - POSTGRES_USER=user
+      - POSTGRES_PASSWORD=password
+    ports:
+      - '5555:5432'

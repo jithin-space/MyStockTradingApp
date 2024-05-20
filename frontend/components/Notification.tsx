@@ -5,7 +5,7 @@ interface NotificationProps {
     open: boolean,
     message: string,
     severity: 'success' | 'error' | 'warning' | 'info';
-    handleClose: (event?: SyntheticEvent, reason?: string) => void;
+    handleClose: (event?: Event | SyntheticEvent<any, Event>, reason?: string) => void;
 }
 
 const Notification = ({ open, message, severity, handleClose }: NotificationProps ) => {

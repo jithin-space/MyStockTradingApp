@@ -50,7 +50,7 @@ const Register = () => {
     }
   };
 
-  const handleClose = (event?: SyntheticEvent, reason?: string) => {
+  const handleClose = (event?: Event | SyntheticEvent, reason?: string) => {
     if (reason === "clickaway") {
       return;
     }

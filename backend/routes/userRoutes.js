@@ -40,6 +40,9 @@ router.post('/register', async (req, res) => {
 
 router.post('/login', async (req, res) => {
     const { username, password } = req.body;
+
+    console.log(req.body);
+    console.log('working node');
     try {
         const user = await User.query().findOne({ username });
         if(!user) {
