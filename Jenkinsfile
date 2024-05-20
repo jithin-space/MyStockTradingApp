@@ -38,7 +38,7 @@ pipeline {
 
             steps {
                 script {
-                    docker.withRegistry('', env.DOCKERHUB_CREDENTIALS) {
+                    docker.withRegistry('', '21cdf654-3111-4213-a26f-035cafbbf146') {
                         frontendImage.push()
                         backendImage.push()
                     }
