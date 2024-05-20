@@ -24,8 +24,8 @@ pipeline {
                     echo "Backend Docker Tag: ${backendTag}"
 
                     // Build the Docker images with BUILD_NUMBER
-                    def frontendImage = docker.build(frontendTag, 'frontend')
-                    def backendImage = docker.build(backendTag, 'backend')
+                    frontendImage = docker.build(frontendTag, 'frontend')
+                    backendImage = docker.build(backendTag, 'backend')
 
 
                     // def frontendImage = docker.build('jithinspace/frontend:${env.BUILD_ID}', 'frontend')
