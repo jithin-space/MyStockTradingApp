@@ -13,11 +13,27 @@ pipeline {
             }
         }
 
+        stage('Print Environment Variables') {
+            steps {
+                script {
+                    echo "BUILD_ID: ${env.BUILD_ID}"
+                    echo "BUILD_NUMBER: ${env.BUILD_NUMBER}"
+                }
+            }
+        }
+
         stage('Build') {
             steps {
                 script {
-                    def frontendImage = docker.build('jithinspace/frontend:${env.BUILD_ID}', 'frontend')
-                    def backendImage = docker.build('jithinspace/backend:${env.BUILD_ID}', 'backend')
+                     def sanitizedBuildNumber = env.BUILD_NUMBER.replaceAll('[^a-zA-Z0-9_.-]', '-')
+
+                    // Ensure the sanitized BUILD_NUMBER is not empty
+                    if (sanitizedBuildNumber == '') {
+                        error("The sanitized BUILD_NUMBER resulted in an empty string, which is not a valid tag.")
+                    }
+
+                    def frontendImage = docker.build('jithinspace/frontend:${sanitizedBuildNumber}', 'frontend')
+                    def backendImage = docker.build('jithinspace/backend:${sanitizedBuildNumber}', 'backend')
                 }
             }
         }
