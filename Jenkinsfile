@@ -11,29 +11,25 @@ pipeline {
             steps {
                 git branch: 'main', url: 'https://github.com/jithin-space/MyStockTradingApp.git'
             }
-        }
-
-        stage('Print Environment Variables') {
-            steps {
-                script {
-                    echo "BUILD_ID: ${env.BUILD_ID}"
-                    echo "BUILD_NUMBER: ${env.BUILD_NUMBER}"
-                }
-            }
-        }
+        }    
 
         stage('Build') {
             steps {
                 script {
-                     def sanitizedBuildNumber = env.BUILD_NUMBER.replaceAll('[^a-zA-Z0-9_.-]', '-')
+                    def buildNumber = env.BUILD_ID
+                    def frontendTag = "jithinspace/frontend:${buildNumber}"
+                    def backendTag = "jithinspace/backend:${buildNumber}"
 
-                    // Ensure the sanitized BUILD_NUMBER is not empty
-                    if (sanitizedBuildNumber == '') {
-                        error("The sanitized BUILD_NUMBER resulted in an empty string, which is not a valid tag.")
-                    }
+                    echo "Frontend Docker Tag: ${frontendTag}"
+                    echo "Backend Docker Tag: ${backendTag}"
 
-                    def frontendImage = docker.build('jithinspace/frontend:${sanitizedBuildNumber}', 'frontend')
-                    def backendImage = docker.build('jithinspace/backend:${sanitizedBuildNumber}', 'backend')
+                    // Build the Docker images with BUILD_NUMBER
+                    def frontendImage = docker.build(frontendTag, 'frontend')
+                    def backendImage = docker.build(backendTag, 'backend')
+
+
+                    // def frontendImage = docker.build('jithinspace/frontend:${env.BUILD_ID}', 'frontend')
+                    // def backendImage = docker.build('jithinspace/backend:${env.BUILD_ID}', 'backend')
                 }
             }
         }
