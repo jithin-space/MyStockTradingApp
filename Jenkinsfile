@@ -49,7 +49,7 @@ pipeline {
         stage('Deploy to Azure') {
             steps {
                 script {
-                    withCredentials([string(credentialsId: 'AZURE_CREDENTIALS', variable: 'AZURE_CREDENTIALS')]) {
+                    withCredentials([string(credentialsId: 'cba74787-5af9-4896-8d8c-f0cc2cc543e3', variable: 'AZURE_CREDENTIALS')]) {
                         sh 'az login --service-principal -u $AZURE_CREDENTIALS -p $AZURE_CREDENTIALS --tenant 45817f11-fbc6-409d-b55a-e9cb01b2ecd5'
                         sh 'az acr login --name jithinacr'
                         sh 'docker tag jithinspace/frontend:${env.BUILD_ID} jithinacr.azurecr.io/frontend:${env.BUILD_ID}'
