@@ -16,7 +16,7 @@ pipeline {
         stage('Build') {
             steps {
                 script {
-                    buildNumber = buildNumber
+                    buildNumber = env.BUILD_ID
                     def frontendTag = "jithinspace/frontend:${buildNumber}"
                     def backendTag = "jithinspace/backend:${buildNumber}"
 
