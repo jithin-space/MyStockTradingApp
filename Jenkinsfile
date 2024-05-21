@@ -57,7 +57,11 @@ pipeline {
                         sh "docker push jithinacr.azurecr.io/frontend:${buildNumber}"
                         sh "docker push jithinacr.azurecr.io/backend:${buildNumber}"
 
-                         def tagLatest = input message: 'Tag images with "latest"?', id: 'TAG_LATEST', type: 'boolean'
+                        def tagLatest = input(
+                            message: 'Tag images with "latest"?',
+                            id: 'TAG_LATEST',
+                            parameters: [booleanParam(defaultValue: false, description: 'Tag with "latest"', name: 'tagLatest')]
+                        )
         
                         if (tagLatest) {
                         // Tag images with "latest" (without overwriting)
