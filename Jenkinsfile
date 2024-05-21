@@ -56,6 +56,20 @@ pipeline {
                         sh "docker tag jithinspace/backend:${buildNumber} jithinacr.azurecr.io/backend:${buildNumber}"
                         sh "docker push jithinacr.azurecr.io/frontend:${buildNumber}"
                         sh "docker push jithinacr.azurecr.io/backend:${buildNumber}"
+
+                         def tagLatest = input message: 'Tag images with "latest"?', id: 'TAG_LATEST', type: 'boolean'
+        
+                        if (tagLatest) {
+                        // Tag images with "latest" (without overwriting)
+                            sh "docker tag jithinacr.azurecr.io/frontend:${buildNumber} jithinacr.azurecr.io/frontend:latest"
+                            sh "docker tag jithinacr.azurecr.io/backend:${buildNumber} jithinacr.azurecr.io/backend:latest"
+                            sh "docker push jithinacr.azurecr.io/frontend:latest"
+                            sh "docker push jithinacr.azurecr.io/backend:latest"
+                            echo 'Successfully tagged images with "latest"'
+                        } else {
+                            echo 'Skipping "latest" tag.'
+                        }
+
                         sh 'kubectl apply -f k8s/combined.yaml'
                     }
                 }
