@@ -56,7 +56,7 @@ pipeline {
                         sh "docker tag jithinspace/backend:${buildNumber} jithinacr.azurecr.io/backend:${buildNumber}"
                         sh "docker push jithinacr.azurecr.io/frontend:${buildNumber}"
                         sh "docker push jithinacr.azurecr.io/backend:${buildNumber}"
-                        sh 'kubectl apply -f k8s/deployment.yaml'
+                        sh 'kubectl apply -f k8s/combined.yaml'
                     }
                 }
             }
