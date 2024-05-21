@@ -16,7 +16,7 @@ pipeline {
         stage('Build') {
             steps {
                 script {
-                    def buildNumber = env.BUILD_ID
+                    buildNumber = buildNumber
                     def frontendTag = "jithinspace/frontend:${buildNumber}"
                     def backendTag = "jithinspace/backend:${buildNumber}"
 
@@ -28,8 +28,8 @@ pipeline {
                     backendImage = docker.build(backendTag, 'backend')
 
 
-                    // def frontendImage = docker.build('jithinspace/frontend:${env.BUILD_ID}', 'frontend')
-                    // def backendImage = docker.build('jithinspace/backend:${env.BUILD_ID}', 'backend')
+                    // def frontendImage = docker.build('jithinspace/frontend:${buildNumber}', 'frontend')
+                    // def backendImage = docker.build('jithinspace/backend:${buildNumber}', 'backend')
                 }
             }
         }
@@ -52,10 +52,10 @@ pipeline {
                     withCredentials([azureServicePrincipal('cba74787-5af9-4896-8d8c-f0cc2cc543e3')]) {
                         sh 'az login --service-principal -u $AZURE_CLIENT_ID -p $AZURE_CLIENT_SECRET --tenant $AZURE_TENANT_ID'
                         sh 'az acr login --name jithinacr'
-                        sh 'docker tag jithinspace/frontend:${env.BUILD_ID} jithinacr.azurecr.io/frontend:${env.BUILD_ID}'
-                        sh 'docker tag jithinspace/backend:${env.BUILD_ID} jithinacr.azurecr.io/backend:${env.BUILD_ID}'
-                        sh 'docker push jithinacr.azurecr.io/frontend:${env.BUILD_ID}'
-                        sh 'docker push jithinacr.azurecr.io/backend:${env.BUILD_ID}'
+                        sh "docker tag jithinspace/frontend:${buildNumber} jithinacr.azurecr.io/frontend:${buildNumber}"
+                        sh "docker tag jithinspace/backend:${buildNumber} jithinacr.azurecr.io/backend:${buildNumber}"
+                        sh "docker push jithinacr.azurecr.io/frontend:${buildNumber}"
+                        sh "docker push jithinacr.azurecr.io/backend:${buildNumber}"
                         sh 'kubectl apply -f k8s/deployment.yaml'
                     }
                 }
