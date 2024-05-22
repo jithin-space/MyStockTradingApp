@@ -74,6 +74,8 @@ pipeline {
                             echo 'Skipping "latest" tag.'
                         }
 
+                        sh 'kubectl apply -f k8s/postgres-pv.yaml'
+                        sh 'kubectl apply -f k8s/postgres-deployment.yaml'
                         sh 'kubectl apply -f k8s/combined.yaml'
                     }
                 }

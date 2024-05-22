@@ -43,14 +43,7 @@ module.exports = {
   },
   staging: {
     client: "pg",
-    connection: {
-      host: "stock-trading-db.postgres.database.azure.com",
-      database: "stock_trading",
-      user: "stock_trading_db_admin",
-      password: "dbadmin123$",
-      port: 5432,
-      // ssl: true
-    },
+    connection: process.env.DATABASE_URL,
     pool: {
       min: 2,
       max: 10,
