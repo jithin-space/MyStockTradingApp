@@ -4,30 +4,29 @@
  * @type { Object.<string, import("knex").Knex.Config> }
  */
 module.exports = {
-
   development: {
-    client: 'pg',
+    client: "pg",
     connection: {
-      host: 'localhost',
-      user: 'postgres',
-      password: 'mysecretpassword',
-      database: 'stock_trading',
+      host: "localhost",
+      user: "postgres",
+      password: "mysecretpassword",
+      database: "stock_trading",
       port: 5555,
     },
     migrations: {
-      directory: __dirname+ '/db/migrations'
+      directory: __dirname + "/db/migrations",
     },
     seeds: {
-      directory: __dirname + '/db/seeds'
-    }
+      directory: __dirname + "/db/seeds",
+    },
   },
   test: {
-    client: 'pg',
+    client: "pg",
     connection: {
-      host: 'localhost',
-      user: 'postgres',
-      password: 'mysecretpassword',
-      database: 'stock_trading_test',
+      host: "localhost",
+      user: "postgres",
+      password: "mysecretpassword",
+      database: "stock_trading_test",
       port: 5555,
     },
     pool: {
@@ -36,42 +35,48 @@ module.exports = {
       idleTimeoutMillis: 120000,
     },
     migrations: {
-      directory: './db/migrations'
+      directory: "./db/migrations",
     },
     seeds: {
-      directory: './db/seeds'
-    }
+      directory: "./db/seeds",
+    },
   },
   staging: {
-    client: 'postgresql',
+    client: "pg",
     connection: {
-      database: 'my_db',
-      user:     'username',
-      password: 'password'
+      host: "stock-trading-db.postgres.database.azure.com",
+      database: "stock_trading",
+      user: "stock_trading_db_admin",
+      password: "dbadmin123$",
+      port: 5432,
+      // ssl: true
+    },
+    pool: {
+      min: 2,
+      max: 10,
+      idleTimeoutMillis: 120000,
+    },
+    migrations: {
+      directory: "./db/migrations",
+    },
+    seeds: {
+      directory: "./db/seeds",
+    },
+  },
+
+  production: {
+    client: "postgresql",
+    connection: {
+      database: "my_db",
+      user: "username",
+      password: "password",
     },
     pool: {
       min: 2,
       max: 10,
     },
     migrations: {
-      tableName: 'knex_migrations'
-    }
+      tableName: "knex_migrations",
+    },
   },
-
-  production: {
-    client: 'postgresql',
-    connection: {
-      database: 'my_db',
-      user:     'username',
-      password: 'password'
-    },
-    pool: {
-      min: 2,
-      max: 10
-    },
-    migrations: {
-      tableName: 'knex_migrations'
-    }
-  }
-
 };
